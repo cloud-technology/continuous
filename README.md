@@ -1,0 +1,2 @@
+# continuous
+GitLab CI templates
