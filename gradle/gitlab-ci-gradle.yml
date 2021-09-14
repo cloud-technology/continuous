@@ -95,4 +95,8 @@ gradle-build:
     paths:
       - .gradle
     policy: pull-push
+  tags:
+    - docker
+    - gce
+
 
