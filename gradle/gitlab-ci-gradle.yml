@@ -1,0 +1,55 @@
+include:
+  remote: 'https://raw.githubusercontent.com/cloud-technology/template-file/main/gradle/templates/gradle-build.yml'
+
+variables:
+  GRADLE_IMAGE: "gradle:latest"
+  GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
+  GRADLE_DEPENDENCY_CHECK_TASK: "dependencyCheckAnalyze"
+
+
+# your pipeline stages
+stages:
+  - build
+  - test
+  - package-build
+  - package-test
+  - infra
+  - deploy
+  - acceptance
+  - publish
+  - infra-prod
+  - production
+
+.gradle-scripts: &gradle-scripts |
+  # BEGSCRIPT
+  set -e
+
+  function clear_env_resource () {
+    rm -f src/main/resources/application-*.yml
+    rm -rf src/main/resources/config
+  }
+
+  function install_docker_cli() {
+    wget https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz
+    tar xzvf docker-19.03.9.tgz
+    cp docker/* /usr/bin/
+  }
+
+  function output_jacoco_coverage() {
+    awk -F',' '{ instructions += $4 + $5; covered += $5 } END { print covered"/"instructions " instructions covered"; print 100*covered/instructions "% covered" }' build/reports/jacoco/test/jacocoTestReport.csv
+  }
+
+  # ENDSCRIPT
+
+gradle-build:
+  extends: .job_gradle_build_template
+  rules:
+    # exclude merge requests
+    - if: '$CI_MERGE_REQUEST_ID == null'
+      when: always
+    - if: $CI_COMMIT_REF_NAME == "main"
+      when: always
+    - if: $CI_COMMIT_REF_NAME != "main"
+      when: manual
+    - if: $CI_COMMIT_TAG
+      when: always
