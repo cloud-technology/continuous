@@ -1,5 +1,5 @@
 include:
-  remote: 'https://raw.githubusercontent.com/cloud-technology/template-file/main/gradle/templates/gradle-build.yml'
+  remote: 'https://raw.githubusercontent.com/cloud-technology/continuous/main/gradle/templates/gradle-build.yml'
 
 variables:
   GRADLE_IMAGE: "gradle:latest"
