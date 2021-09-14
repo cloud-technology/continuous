@@ -66,9 +66,8 @@ gradle-build:
 .job_gradle_build_template:
   stage: build
   image: $GRADLE_IMAGE
-  services:
-    - name: docker:dind
-      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
   script:
     - *gradle-scripts
     - cat build.gradle
