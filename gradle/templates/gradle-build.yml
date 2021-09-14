@@ -1,11 +1,7 @@
-stages:
-  - build
-
 .job_gradle_build_template:
   stage: build
   image: $GRADLE_IMAGE
   script:
-    - *gradle-scripts
     - cat build.gradle
     # 刪除其他環境設定檔
     - clear_env_resource
