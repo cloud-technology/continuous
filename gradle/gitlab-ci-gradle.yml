@@ -66,8 +66,6 @@ gradle-build:
 .job_gradle_build_template:
   stage: build
   image: $GRADLE_IMAGE
-  variables:
-    DOCKER_HOST: tcp://docker:2375
   script:
     - *gradle-scripts
     - cat build.gradle
@@ -98,7 +96,8 @@ gradle-build:
       - .gradle
     policy: pull-push
   tags:
+    - aws
+    - ct
     - docker
-    - gce
 
 
