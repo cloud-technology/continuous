@@ -1,3 +1,6 @@
+stages:
+  - build
+
 .job_gradle_build_template:
   stage: build
   image: $GRADLE_IMAGE
