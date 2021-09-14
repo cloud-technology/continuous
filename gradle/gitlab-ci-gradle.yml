@@ -1,11 +1,7 @@
-include:
-  remote: 'https://raw.githubusercontent.com/cloud-technology/continuous/main/gradle/templates/gradle-build.yml'
-
 variables:
   GRADLE_IMAGE: "gradle:latest"
   GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
   GRADLE_DEPENDENCY_CHECK_TASK: "dependencyCheckAnalyze"
-
 
 # your pipeline stages
 stages:
@@ -43,8 +39,8 @@ stages:
 
 gradle-build:
   extends: .job_gradle_build_template
-  before_script:
-    - *gradle-scripts
+  # before_script:
+  #   - *gradle-scripts
   rules:
     # exclude merge requests
     - if: '$CI_MERGE_REQUEST_ID == null'
