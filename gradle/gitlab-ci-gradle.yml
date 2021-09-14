@@ -43,6 +43,8 @@ stages:
 
 gradle-build:
   extends: .job_gradle_build_template
+  before_script:
+    - *gradle-scripts
   rules:
     # exclude merge requests
     - if: '$CI_MERGE_REQUEST_ID == null'
