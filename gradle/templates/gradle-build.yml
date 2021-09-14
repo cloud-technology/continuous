@@ -2,7 +2,7 @@
   stage: build
   image: $GRADLE_IMAGE
   script:
-    # - *gradle-scripts
+    - *gradle-scripts
     - cat build.gradle
     # 刪除其他環境設定檔
     - clear_env_resource
